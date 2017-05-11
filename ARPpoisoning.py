@@ -1,17 +1,17 @@
 #! /usr/bin/env python
 
 import logging
-
 logging.getLogger("scapy.loading").setLevel(logging.ERROR)
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 logging.getLogger("scapy.interactive").setLevel(logging.ERROR)
 
 
-try:
-    from scapy.all import *
+from scapy.all import *
 
-except ImportError:
-    print "http://pipy.python.org/pipy/scapy"
-    sys.exit()
 
-arping('172.16.1.*')
+target = 'ff:ff:ff:ff:ff:ff'
+
+send(ARP(hwsrc = get_if_hwaddr('enp0s3'), psrc = '172.16.1.233', hwdst = target, pdst = '172.16.1.2'), iface = 'enp0s3')
+
+
+
